@@ -19,7 +19,7 @@
           />
         </svg>
 
-        <NuxtLink to="javascript:void(0)"> Couponie </NuxtLink>
+        <NuxtLink to="/"> Couponie </NuxtLink>
       </div>
       <div class="flex-1 flex items-center">
         <div
@@ -84,9 +84,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
+import { ref, Ref, watch } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const menuItem: Ref<boolean> = ref(false);
+
+watch(
+  route,
+  () => {
+    menuItem.value = false;
+  },
+  { deep: true, immediate: true }
+);
 
 const handleClick = () => {
   menuItem.value = !menuItem.value;
