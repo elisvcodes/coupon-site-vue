@@ -4,10 +4,11 @@
       class="w-full flex flex-col items-center gap-3 md:flex-row md:justify-between"
     >
       <div class="flex items-center justify-center gap-x-3">
-        <div
-          class="flex items-center justify-center bg-white w-14 h-14 border rounded-full"
-        >
-          {{ discountRate }}
+        <div>
+          <span
+            class="flex items-center justify-center bg-white w-14 h-14 border rounded-full"
+            >{{ discountRate }}</span
+          >
         </div>
         <div class="text-base text-gray-800 font-semibold mt-1">
           <span class="block text-sm text-indigo-600 font-medium">{{

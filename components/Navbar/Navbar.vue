@@ -27,8 +27,8 @@
           :class="menuItem ? '' : 'hidden'"
         >
           <ul class="space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
-            <li><NuxtLink to="/signup">Sign up</NuxtLink></li>
-            <li><NuxtLink to="signin">Login</NuxtLink></li>
+            <li><NuxtLink to="/auth?action=signup">Sign up</NuxtLink></li>
+            <li><NuxtLink to="/auth?action=signin">Login</NuxtLink></li>
             <li>
               <NuxtLink
                 role="button"
