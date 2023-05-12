@@ -15,7 +15,14 @@
       </h3>
     </div>
 
-    <form class="space-y-5">
+    <form
+      class="space-y-5"
+      @submit.prevent="
+        route.query.action === `signin`
+          ? handleLoginUser()
+          : handleRegisterUser()
+      "
+    >
       <div>
         <label class="font-medium" for="email"> Email </label>
         <UiInputField
@@ -24,6 +31,8 @@
           type="email"
           placeholder="hello@world.com"
           required
+          :value="formData.email"
+          @input="handleFields($event)"
         />
       </div>
       <div>
@@ -34,6 +43,8 @@
           type="password"
           placeholder="••••••"
           required
+          :value="formData.password"
+          @input="handleFields($event)"
         />
       </div>
 
@@ -51,13 +62,58 @@
         Sign Up
       </button>
     </form>
+    <p class="text-red-500 text-center mt-5">{{ errorMessage }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, Ref } from "vue";
 import { useRoute } from "vue-router";
+import { registerUser, loginUser } from "../../api/mutateData/auth";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const route = useRoute();
-</script>
+const errorMessage: Ref<String | null> = ref(null);
+const formData: Ref<FormData> = ref({ email: "", password: "" });
 
-<style scoped></style>
+const handleFields = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  const { name, value } = target;
+  if (name in formData.value) {
+    formData.value[name as keyof FormData] = value;
+  }
+};
+
+const handleRegisterUser = async () => {
+  try {
+    const res = await registerUser(formData.value);
+    if (res.status === 201) {
+      console.log("jkjkl", res.data);
+    }
+  } catch (error: any) {
+    errorMessage.value = error.response.data.message;
+
+    setTimeout(() => {
+      errorMessage.value = "";
+    }, 2000);
+  }
+};
+const handleLoginUser = async () => {
+  try {
+    const res = await loginUser(formData.value);
+    if (res.status === 200) {
+      console.log("jkjkl", res.data);
+    }
+  } catch (error: any) {
+    errorMessage.value = error.response.data.message;
+
+    setTimeout(() => {
+      errorMessage.value = "";
+    }, 2000);
+  }
+};
+</script>
