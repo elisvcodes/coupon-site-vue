@@ -12,16 +12,16 @@
         </p>
       </div>
       <div
-        class="flex gap-3 items-center mt-4 m-auto md:justify-center md:w-1/2"
+        class="flex gap-3 items-center mt-4 m-auto md:justify-center lg:w-1/2"
       >
-        <form className="w-full items-center justify-center sm:flex">
+        <form class="w-full items-center justify-center sm:flex">
           <input
             type="text"
             placeholder="Search for your favorite brands"
-            className="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
+            class="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
           />
           <button
-            className="w-full mt-3 px-5 py-3 rounded-md text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 duration-150 outline-none shadow-md focus:shadow-none focus:ring-2 ring-offset-2 ring-indigo-600 sm:mt-0 sm:ml-3 sm:w-auto"
+            class="w-full mt-3 px-5 py-3 rounded-md indigo-button sm:mt-0 sm:ml-3 sm:w-auto"
           >
             Search
           </button>
@@ -30,5 +30,3 @@
     </div>
   </section>
 </template>
-
-<script setup lang="ts"></script>

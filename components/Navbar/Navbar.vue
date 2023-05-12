@@ -32,7 +32,7 @@
             <li>
               <NuxtLink
                 role="button"
-                class="p-2 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 duration-150 outline-none shadow-md focus:shadow-none focus:ring-2 ring-offset-2 ring-indigo-600 rounded text-white text-sm"
+                class="p-2 indigo-button rounded text-sm"
                 to="/add"
                 >Add Coupon</NuxtLink
               >
