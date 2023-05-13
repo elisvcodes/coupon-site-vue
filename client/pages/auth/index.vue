@@ -70,6 +70,7 @@
 import { ref, Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { registerUser, loginUser } from "../../api/mutateData/auth";
+import { useAuth } from "../../composables/useAuth";
 
 interface FormData {
   email: string;
@@ -80,6 +81,7 @@ const route = useRoute();
 const router = useRouter();
 const errorMessage: Ref<String | null> = ref(null);
 const formData: Ref<FormData> = ref({ email: "", password: "" });
+const auth = useAuth();
 
 const handleFields = (e: Event) => {
   const target = e.target as HTMLInputElement;
@@ -112,14 +114,9 @@ const handleRegisterUser = async () => {
 };
 
 const handleLoginUser = async () => {
-  try {
-    const res = await loginUser(formData.value);
-    if (res.status === 200) {
-      formData.value.email = "";
-      formData.value.password = "";
-    }
-  } catch (error: any) {
-    errorMessage.value = error.response.data.message;
+  const res = await auth.login(formData.value);
+  if (res?.status === "err") {
+    errorMessage.value = res.message;
 
     setTimeout(() => {
       errorMessage.value = "";

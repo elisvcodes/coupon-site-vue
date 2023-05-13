@@ -29,7 +29,7 @@
           <ul class="space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
             <li><NuxtLink to="/auth?action=signup">Sign up</NuxtLink></li>
             <li><NuxtLink to="/auth?action=signin">Login</NuxtLink></li>
-            <li>
+            <li v-if="auth.user?.value">
               <NuxtLink
                 role="button"
                 class="p-2 indigo-button rounded text-sm"
@@ -86,6 +86,9 @@
 <script setup lang="ts">
 import { ref, Ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useAuth } from "../../composables/useAuth";
+
+const auth = useAuth();
 
 const route = useRoute();
 const menuItem: Ref<boolean> = ref(false);
