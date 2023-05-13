@@ -49,14 +49,14 @@
       </div>
 
       <button
-        class="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+        class="w-full px-4 py-2 indigo-button rounded-md duration-150"
         v-if="route.query.action === `signin`"
       >
         Sign in
       </button>
 
       <button
-        class="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+        class="w-full px-4 py-2 indigo-button rounded-md duration-150"
         v-else
       >
         Sign Up
@@ -67,8 +67,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from "vue";
-import { useRoute } from "vue-router";
+import { ref, Ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { registerUser, loginUser } from "../../api/mutateData/auth";
 
 interface FormData {
@@ -77,6 +77,7 @@ interface FormData {
 }
 
 const route = useRoute();
+const router = useRouter();
 const errorMessage: Ref<String | null> = ref(null);
 const formData: Ref<FormData> = ref({ email: "", password: "" });
 
@@ -88,11 +89,18 @@ const handleFields = (e: Event) => {
   }
 };
 
+watch(route, () => {
+  formData.value.email = "";
+  formData.value.password = "";
+});
+
 const handleRegisterUser = async () => {
   try {
     const res = await registerUser(formData.value);
     if (res.status === 201) {
-      console.log("jkjkl", res.data);
+      formData.value.email = "";
+      formData.value.password = "";
+      router.push({ path: "auth", query: { action: "signin" } });
     }
   } catch (error: any) {
     errorMessage.value = error.response.data.message;
@@ -102,11 +110,13 @@ const handleRegisterUser = async () => {
     }, 2000);
   }
 };
+
 const handleLoginUser = async () => {
   try {
     const res = await loginUser(formData.value);
     if (res.status === 200) {
-      console.log("jkjkl", res.data);
+      formData.value.email = "";
+      formData.value.password = "";
     }
   } catch (error: any) {
     errorMessage.value = error.response.data.message;
