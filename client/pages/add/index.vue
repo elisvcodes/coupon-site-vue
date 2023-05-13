@@ -6,7 +6,7 @@
       </h3>
     </div>
 
-    <form class="space-y-5" @submit.prevent="handleRegisterUser()">
+    <form class="space-y-5" @submit.prevent="handleCouponCreation()">
       <div>
         <label class="font-medium" for="title"> Title </label>
         <UiInputField
@@ -44,7 +44,7 @@
         />
       </div>
       <div>
-        <label class="font-medium" for="couponCode"> Couppon code </label>
+        <label class="font-medium" for="couponCode"> Coupon code </label>
         <UiInputField
           id="couponCode"
           name="couponCode"
@@ -65,9 +65,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-// import { useRegisterUser } from "../../api/mutateData/registerUser";
+import { ref, Ref } from "vue";
+import { useRouter } from "vue-router";
+import { useCreateCoupon } from "../../api/mutateData/createCoupon";
 
 interface FormData {
   title: string;
@@ -76,7 +76,6 @@ interface FormData {
   couponCode: string;
 }
 
-const route = useRoute();
 const router = useRouter();
 const errorMessage: Ref<String | null> = ref(null);
 const formData: Ref<FormData> = ref({
@@ -86,6 +85,8 @@ const formData: Ref<FormData> = ref({
   couponCode: "",
 });
 
+const { mutateAsync: createCouponMutation } = useCreateCoupon();
+
 const handleFields = (e: Event) => {
   const target = e.target as HTMLInputElement;
   const { name, value } = target;
@@ -94,24 +95,15 @@ const handleFields = (e: Event) => {
   }
 };
 
-watch(route, () => {
-  formData.value.title = "";
-  formData.value.brand = "";
-});
+const handleCouponCreation = async () => {
+  try {
+    const res = await createCouponMutation({ ...formData.value });
+  } catch (error: any) {
+    errorMessage.value = error.response.data.message;
 
-const handleRegisterUser = async () => {
-  //   try {
-  //     const res = await registerUser(formData.value);
-  //     if (res.status === 201) {
-  //       formData.value.percentageOff = "";
-  //       formData.value.percentageOff = "";
-  //       router.push("/");
-  //     }
-  //   } catch (error: any) {
-  //     errorMessage.value = error.response.data.message;
-  //     setTimeout(() => {
-  //       errorMessage.value = "";
-  //     }, 2000);
-  //   }
+    setTimeout(() => {
+      errorMessage.value = "";
+    }, 2000);
+  }
 };
 </script>

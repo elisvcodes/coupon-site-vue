@@ -10,7 +10,9 @@ interface LoginError {
 
 interface Auth {
   user: { value: string } | null;
-  login: (credentials: any) => Promise<LoginError | undefined>;
+  login: (
+    credentials: Record<string, unknown>
+  ) => Promise<LoginError | undefined>;
   logout: () => void;
 }
 
@@ -18,13 +20,15 @@ export function useProvideAuth() {
   const { mutateAsync: loginUser } = useLoginUser();
   const user: Ref<string | null> = ref(null);
 
-  const login = async (credentials: Object): Promise<void | LoginError> => {
+  const login = async (
+    credentials: Record<string, unknown>
+  ): Promise<void | LoginError> => {
     try {
       const userData = await loginUser(credentials);
 
       user.value = userData.data.token;
       if (process.client) {
-        localStorage.setItem("token", JSON.stringify(userData));
+        localStorage.setItem("token", userData.data.token);
       }
     } catch (error: any) {
       return { status: "err", message: error.response.data.message };
