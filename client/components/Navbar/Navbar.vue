@@ -27,8 +27,12 @@
           :class="menuItem ? '' : 'hidden'"
         >
           <ul class="space-y-5 lg:flex lg:space-x-6 lg:space-y-0 lg:mt-0">
-            <li><NuxtLink to="/auth?action=signup">Sign up</NuxtLink></li>
-            <li><NuxtLink to="/auth?action=signin">Login</NuxtLink></li>
+            <li v-if="!auth.user?.value">
+              <NuxtLink to="/auth?action=signup">Sign up</NuxtLink>
+            </li>
+            <li v-if="!auth.user?.value">
+              <NuxtLink to="/auth?action=signin">Login</NuxtLink>
+            </li>
             <li v-if="auth.user?.value">
               <NuxtLink
                 role="button"
@@ -36,6 +40,13 @@
                 to="/add"
                 >Add Coupon</NuxtLink
               >
+            </li>
+            <li
+              v-if="auth.user?.value"
+              class="cursor-pointer"
+              @click="auth.logout()"
+            >
+              logout
             </li>
           </ul>
         </div>

@@ -23,7 +23,7 @@ export function useProvideAuth() {
 
       user.value = userData.data.token;
       if (process.client) {
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("token", JSON.stringify(userData));
       }
     } catch (error: any) {
       return { status: "err", message: error.response.data.message };

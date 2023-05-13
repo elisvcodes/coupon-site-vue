@@ -69,7 +69,7 @@
 <script setup lang="ts">
 import { ref, Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { registerUser, loginUser } from "../../api/mutateData/auth";
+import { registerUser } from "../../api/mutateData/auth";
 import { useAuth } from "../../composables/useAuth";
 
 interface FormData {
