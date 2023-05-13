@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../../services/prismaClient";
-import bcrypt from "bcrypt";
-import { Coupon, User } from "@prisma/client";
+import { Coupon } from "@prisma/client";
 import { assert, object, string, size, refine } from "superstruct";
-import isEmail from "isemail";
 
 const Coupon = object({
   // inputs have to be between 2 and 100 characters long
