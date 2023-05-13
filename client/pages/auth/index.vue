@@ -69,8 +69,8 @@
 <script setup lang="ts">
 import { ref, Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { registerUser } from "../../api/mutateData/auth";
 import { useAuth } from "../../composables/useAuth";
+import { useRegisterUser } from "../../api/mutateData/registerUser";
 
 interface FormData {
   email: string;
@@ -82,6 +82,7 @@ const router = useRouter();
 const errorMessage: Ref<String | null> = ref(null);
 const formData: Ref<FormData> = ref({ email: "", password: "" });
 const auth = useAuth();
+const { mutateAsync: registerUserMutation } = useRegisterUser();
 
 const handleFields = (e: Event) => {
   const target = e.target as HTMLInputElement;
@@ -98,7 +99,7 @@ watch(route, () => {
 
 const handleRegisterUser = async () => {
   try {
-    const res = await registerUser(formData.value);
+    const res = await registerUserMutation(formData.value);
     if (res.status === 201) {
       formData.value.email = "";
       formData.value.password = "";

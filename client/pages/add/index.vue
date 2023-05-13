@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import { ref, Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { registerUser } from "../../api/mutateData/auth";
+// import { useRegisterUser } from "../../api/mutateData/registerUser";
 
 interface FormData {
   title: string;
@@ -100,19 +100,18 @@ watch(route, () => {
 });
 
 const handleRegisterUser = async () => {
-  try {
-    const res = await registerUser(formData.value);
-    if (res.status === 201) {
-      formData.value.percentageOff = "";
-      formData.value.percentageOff = "";
-      router.push("/");
-    }
-  } catch (error: any) {
-    errorMessage.value = error.response.data.message;
-
-    setTimeout(() => {
-      errorMessage.value = "";
-    }, 2000);
-  }
+  //   try {
+  //     const res = await registerUser(formData.value);
+  //     if (res.status === 201) {
+  //       formData.value.percentageOff = "";
+  //       formData.value.percentageOff = "";
+  //       router.push("/");
+  //     }
+  //   } catch (error: any) {
+  //     errorMessage.value = error.response.data.message;
+  //     setTimeout(() => {
+  //       errorMessage.value = "";
+  //     }, 2000);
+  //   }
 };
 </script>

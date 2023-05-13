@@ -1,5 +1,5 @@
 import { ref, provide, inject, Ref } from "vue";
-import { loginUser } from "~/api/mutateData/auth";
+import { useLoginUser } from "~/api/mutateData/login";
 
 const AuthSymbol = Symbol();
 
@@ -15,6 +15,7 @@ interface Auth {
 }
 
 export function useProvideAuth() {
+  const { mutateAsync: loginUser } = useLoginUser();
   const user: Ref<string | null> = ref(null);
 
   const login = async (credentials: Object): Promise<void | LoginError> => {
