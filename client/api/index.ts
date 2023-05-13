@@ -9,6 +9,11 @@ if (process.client) {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 }
+
 export const postData = (route: string, data: Record<string, unknown>) => {
   return axios.post(route, data);
+};
+
+export const fetchData = (route: string) => {
+  return axios.get(route);
 };

@@ -1,5 +1,5 @@
 import { ref, provide, inject, Ref } from "vue";
-import { useLoginUser } from "~/api/mutateData/login";
+import { useLoginUser } from "~/api/mutateData/useLoginUser";
 
 const AuthSymbol = Symbol();
 

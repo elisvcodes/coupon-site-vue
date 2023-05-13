@@ -70,7 +70,7 @@
 import { ref, Ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuth } from "../../composables/useAuth";
-import { useRegisterUser } from "../../api/mutateData/registerUser";
+import { useRegisterUser } from "../../api/mutateData/useRegisterUser";
 
 interface FormData {
   email: string;
@@ -99,7 +99,7 @@ watch(route, () => {
 
 const handleRegisterUser = async () => {
   try {
-    const res = await registerUserMutation(formData.value);
+    const res = await registerUserMutation({ ...formData.value });
     if (res.status === 201) {
       formData.value.email = "";
       formData.value.password = "";

@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue";
 import { useRouter } from "vue-router";
-import { useCreateCoupon } from "../../api/mutateData/createCoupon";
+import { useCreateCoupon } from "../../api/mutateData/useCreateCoupon";
 
 interface FormData {
   title: string;
@@ -98,6 +98,9 @@ const handleFields = (e: Event) => {
 const handleCouponCreation = async () => {
   try {
     const res = await createCouponMutation({ ...formData.value });
+    if (res.status === 201) {
+      router.push("/");
+    }
   } catch (error: any) {
     errorMessage.value = error.response.data.message;
 
