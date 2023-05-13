@@ -21,16 +21,18 @@ const createCoupon = async (req: Request, res: Response) => {
       throw Error("Whoops, you are not allowed to do create coupons");
     }
 
-    const couponData: Partial<Coupon> = await prismaClient.coupon.create({
-      data: { title, percentageOff, couponCode, userId: user?.id },
+    let brandData = await prismaClient.brand.findFirst({
+      where: { title: brand },
     });
 
-    if (!couponData?.id) {
-      throw Error("Whoops, No coupon was found");
+    if (!brandData) {
+      brandData = await prismaClient.brand.create({
+        data: { title: brand },
+      });
     }
 
-    const brandData = await prismaClient.brand.create({
-      data: { title: brand },
+    const couponData: Partial<Coupon> = await prismaClient.coupon.create({
+      data: { title, percentageOff, couponCode, userId: user?.id },
     });
 
     await prismaClient.coupon.update({

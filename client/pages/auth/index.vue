@@ -115,7 +115,7 @@ const handleRegisterUser = async () => {
 };
 
 const handleLoginUser = async () => {
-  const res = await auth.login(formData.value);
+  const res = await auth.login({ ...formData.value });
   if (res?.status === "err") {
     errorMessage.value = res.message;
 
