@@ -26,6 +26,7 @@ model Coupon {
   title String
   percentageOff String
   userId String
+  couponCode String @default("")
   user User @relation(fields: [userId], references: [id])
   brand Brand?
   createdAt DateTime @default(now())
