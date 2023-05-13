@@ -27,14 +27,22 @@ const createCoupon = async (req: Request, res: Response) => {
       data: { title, percentageOff, couponCode, userId: user?.id },
     });
 
+    if (!couponData?.id) {
+      throw Error("Whoops, No coupon was found");
+    }
+
     const brandData = await prismaClient.brand.create({
-      data: { title: brand, couponId: couponCode },
+      data: { title: brand },
     });
 
-    // return res.status(201).json({
-    //   message: "Success",
-    //   user,
-    // });
+    await prismaClient.coupon.update({
+      where: { id: couponData.id },
+      data: { brandId: brandData.id },
+    });
+
+    return res.status(201).json({
+      message: "Success",
+    });
   } catch (error: any) {
     return res.status(400).json({
       message: error.message,
