@@ -65,9 +65,11 @@
 </template>
 
 <script setup lang="ts">
+import { useQueryClient } from "@tanstack/vue-query";
 import { ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 import { useCreateCoupon } from "../../api/mutateData/useCreateCoupon";
+const queryClient = useQueryClient();
 
 interface FormData {
   title: string;
@@ -99,7 +101,8 @@ const handleCouponCreation = async () => {
   try {
     const res = await createCouponMutation({ ...formData.value });
     if (res.status === 201) {
-      router.push("/");
+      queryClient.invalidateQueries({ queryKey: ["allCoupons"] }),
+        router.push("/");
     }
   } catch (error: any) {
     errorMessage.value = error.response.data.message;
