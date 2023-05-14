@@ -14,19 +14,33 @@
       <div
         class="flex gap-3 items-center mt-4 m-auto md:justify-center lg:w-1/2"
       >
-        <form class="w-full items-center justify-center sm:flex">
-          <input
-            type="text"
-            placeholder="Search for your favorite brands"
-            class="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
-          />
-          <button
-            class="w-full mt-3 px-5 py-3 rounded-md indigo-button sm:mt-0 sm:ml-3 sm:w-auto"
-          >
-            Search
-          </button>
-        </form>
+        <input
+          :value="query"
+          @input="handleInput"
+          type="text"
+          placeholder="Search for your favorite brands"
+          class="text-gray-500 w-full p-3 rounded-md border outline-none focus:border-indigo-600"
+        />
       </div>
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { watch } from "vue";
+import { useGlobalSearch } from "../../composables/useGlobalSearch";
+
+const { searchQueryActions, query } = useGlobalSearch();
+
+const handleInput = (e: Event) => {
+  const { value } = e.target as HTMLInputElement;
+
+  query.value = value;
+};
+
+watch(query, () => {
+  if (query.value.length > 0) {
+    searchQueryActions.refetch();
+  }
+});
+</script>
