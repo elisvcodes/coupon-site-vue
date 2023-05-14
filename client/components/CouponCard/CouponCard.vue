@@ -2,7 +2,7 @@
   <div>
     <UiCard>
       <div
-        class="w-full flex flex-col items-center gap-3 md:flex-row md:justify-between"
+        class="w-full flex flex-col items-start gap-3 md:flex-row md:justify-between md:items-start"
       >
         <div class="flex items-center justify-center gap-x-3">
           <div>
