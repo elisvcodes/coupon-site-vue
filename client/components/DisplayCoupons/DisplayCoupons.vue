@@ -4,10 +4,7 @@
       <CouponCard
         v-for="coupon in displayedCoupons"
         :key="coupon.id"
-        :discount-rate="coupon.percentageOff"
-        :brand="coupon.brand.title"
-        :coupon-title="coupon.title"
-        :coupon-code="coupon.couponCode"
+        :coupon-data="coupon"
       />
     </div>
     <div v-else>loading...</div>
@@ -19,22 +16,12 @@ import { computed } from "vue";
 import { useFetchAllCoupons } from "../../api/fetchData/useFetchAllCoupons";
 import { useGlobalSearch } from "../../composables/useGlobalSearch";
 
-interface Coupon {
-  id: string;
-  percentageOff: string;
-  title: string;
-  couponCode: string;
-  brand: {
-    title: string;
-  };
-}
-
 const { data, isLoading: allCouponsLoading } = useFetchAllCoupons();
 const { searchQueryActions } = useGlobalSearch();
 const searchDataLoading = searchQueryActions.isLoading;
-const coupons = computed(() => data.value?.data.coupons as Coupon[]);
+const coupons = computed(() => data.value?.data.coupons);
 const searchQueryActionsData = computed(
-  () => searchQueryActions.data?.value?.data?.coupons as Coupon[]
+  () => searchQueryActions.data?.value?.data?.coupons
 );
 
 const displayedCoupons = computed(() => {

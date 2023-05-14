@@ -17,3 +17,7 @@ export const postData = (route: string, data: Record<string, unknown>) => {
 export const fetchData = (route: string) => {
   return axios.get(route);
 };
+
+export const putData = (route: string, data: Record<string, unknown>) => {
+  return axios.put(route, data);
+};

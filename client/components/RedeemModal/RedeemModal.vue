@@ -35,6 +35,7 @@
 
       <button
         class="mt-2 py-2.5 px-8 flex-1 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2"
+        @click="redeemCoupon"
       >
         Redeem
       </button>
@@ -44,12 +45,15 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, Ref, ref, watch } from "vue";
+import { useRedeemCoupon } from "../../api/mutateData/useRedeemCoupon";
 
-const { modalState, couponCode } = defineProps({
+const { modalState, couponCode, couponId } = defineProps({
   modalState: Boolean,
   couponCode: String,
+  couponId: String,
 });
 const copyCode: Ref<boolean> = ref(false);
+const { mutate: redeemCouponMutation } = useRedeemCoupon();
 
 const handleCopy = () => {
   navigator.clipboard.writeText(couponCode!).then(
@@ -65,6 +69,11 @@ const handleCopy = () => {
 watch(copyCode, () => {
   setTimeout(() => (copyCode.value = false), 1500);
 });
+
+const redeemCoupon = () => {
+  redeemCouponMutation({ id: couponId });
+  close();
+};
 
 const emit = defineEmits(["close"]);
 
