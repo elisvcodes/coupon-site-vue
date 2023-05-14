@@ -8,37 +8,26 @@ datasource db {
 }
 
 model User {
-  id              String           @id @default(uuid())
-  email           String           @unique
-  password        String
-  coupons         Coupon[]
-  redeemedCoupons RedeemedCoupon[]
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  coupons   Coupon[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Coupon {
-  id            String          @id @default(uuid())
+  id            String   @id @default(uuid())
   title         String
   percentageOff String
   userId        String
-  couponCode    String          @default("")
-  user          User            @relation(fields: [userId], references: [id])
+  couponCode    String   @default("")
+  user          User     @relation(fields: [userId], references: [id])
+  redeemed      Boolean  @default(false)
   brandId       String?
-  brand         Brand?          @relation(fields: [brandId], references: [id])
-  redeemedCoupons RedeemedCoupon[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-}
-
-model RedeemedCoupon {
-  id        String   @id @default(uuid())
-  userId    String
-  couponId  String
-  user      User     @relation(fields: [userId], references: [id])
-  coupon    Coupon   @relation(fields: [couponId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  brand         Brand?   @relation(fields: [brandId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Brand {

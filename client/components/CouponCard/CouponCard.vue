@@ -29,7 +29,7 @@
     <RedeemModal
       :modal-state="modalState"
       @close="toggleModal"
-      :couponCode="`abc`"
+      :couponCode="couponCode"
     ></RedeemModal>
   </div>
 </template>

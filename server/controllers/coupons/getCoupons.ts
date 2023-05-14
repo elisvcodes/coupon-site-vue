@@ -5,6 +5,7 @@ const getCoupons = async (req: Request, res: Response) => {
   try {
     const couponsData = await prismaClient.coupon.findMany({
       include: { brand: true },
+      where: { redeemed: false },
     });
     res.status(200).json({ message: "Success", coupons: couponsData });
   } catch (error: any) {

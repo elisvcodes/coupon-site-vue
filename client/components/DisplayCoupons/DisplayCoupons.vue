@@ -7,6 +7,7 @@
         :discount-rate="coupon.percentageOff"
         :brand="coupon.brand.title"
         :coupon-title="coupon.title"
+        :coupon-code="coupon.couponCode"
       />
     </div>
     <div v-else>loading...</div>
@@ -22,6 +23,7 @@ interface Coupon {
   id: string;
   percentageOff: string;
   title: string;
+  couponCode: string;
   brand: {
     title: string;
   };
