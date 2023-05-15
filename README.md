@@ -5,6 +5,11 @@
 ## Local Installation
 
 #### Server folder
+make sure to create a .env file that constains the follows
+
+- DATABASE_URL="file:./dev.db" <br>
+-JWT_SECRET="PUT_ANY_SECRET" 
+
 yarn <br>
 npx prisma generate <br>
 yarn run dev
