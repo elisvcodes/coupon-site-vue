@@ -7,6 +7,7 @@ import couponsRoute from "./routes/coupons/index";
 import setupPassport from "./services/passport";
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3030;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,4 +19,4 @@ setupPassport(passport);
 app.use("/auth", authRoutes);
 app.use("/coupons", couponsRoute);
 
-app.listen(8000);
+app.listen(PORT, () => console.log("is running "));

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "dockerfileLines": [
+  "FROM node:18.12.1",
+  "WORKDIR /app",
+  "COPY ./package.json ./",
+  "ENV npm_config_build_from_source=true",
+  "RUN yarn install",
+  "COPY ./prisma ./prisma",  
+  "RUN npx prisma generate", 
+  "COPY ./tsconfig.json ./",
+  "COPY ./ ./src",
+  "RUN yarn build",
+  "EXPOSE 80",
+  ARG DATABASE_URL
+  ENV DATABASE_URL=${DATABASE_URL}
+  "CMD [ \"node\", \"dist/app.js\" ]"
+  ]
+}
