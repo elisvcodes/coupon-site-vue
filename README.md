@@ -5,7 +5,7 @@
 ## Local Installation
 
 #### Server folder
-make sure to create a .env file that constains the follows
+make sure to create a .env file that contains the following
 
 - DATABASE_URL="file:./dev.db"
 - JWT_SECRET="PUT_ANY_SECRET" 
