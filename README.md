@@ -5,9 +5,11 @@
 ## Local Installation
 
 #### Server folder
+yarn <br>
 npx prisma generate <br>
 yarn run dev
 
 
 #### Client folder
+yarn <br>
 yarn run dev
