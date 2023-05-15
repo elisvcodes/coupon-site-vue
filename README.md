@@ -5,7 +5,7 @@
 ## Local Installation
 
 #### Server folder
-npx prisma generate
+npx prisma generate <br>
 yarn run dev
 
 
