@@ -1,6 +1,6 @@
 import { ref, provide, inject, Ref } from "vue";
 import { useLoginUser } from "~/api/mutateData/useLoginUser";
-
+import { useRouter } from "nuxt/app";
 const AuthSymbol = Symbol();
 
 interface LoginError {
@@ -19,6 +19,7 @@ interface Auth {
 export function useProvideAuth() {
   const { mutateAsync: loginUser } = useLoginUser();
   const user: Ref<string | null> = ref(null);
+  const router = useRouter();
 
   const login = async (
     credentials: Record<string, unknown>
@@ -29,6 +30,7 @@ export function useProvideAuth() {
       user.value = userData.data.token;
       if (process.client) {
         localStorage.setItem("token", userData.data.token);
+        router.push("/");
       }
     } catch (error: any) {
       return { status: "err", message: error.response.data.message };
