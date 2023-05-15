@@ -19,10 +19,19 @@
           </div>
         </div>
         <button
-          class="w-full px-5 py-2 rounded-md indigo-button sm:mt-0 sm:ml-3 sm:w-auto"
+          class="relative group w-full px-5 py-2 rounded-md indigo-button sm:mt-0 sm:ml-3 sm:w-auto"
+          :class="!auth.user?.value ? `` : ``"
           @click.stop="toggleModal"
+          :disabled="!auth.user?.value"
         >
-          Redeem
+          <span> Redeem </span>
+
+          <div
+            v-if="!auth.user?.value"
+            class="hidden group-hover:block absolute -top-12 px-2 py-1.5 rounded-xl bg-indigo-600 font-semibold text-white text-[10px] after:absolute after:inset-x-0 after:mx-auto after:top-[22px] after:w-2 after:h-2 after:bg-indigo-600 after:rotate-45"
+          >
+            Please login
+          </div>
         </button>
       </div>
     </UiCard>
@@ -38,6 +47,7 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { Ref, ref, defineProps } from "vue";
+import { useAuth } from "../..//composables/useAuth";
 
 interface Coupon {
   id: string;
@@ -48,6 +58,8 @@ interface Coupon {
     title: string;
   };
 }
+
+const auth = useAuth();
 
 const { couponData } = defineProps({
   couponData: { type: Object as PropType<Coupon>, required: true },
