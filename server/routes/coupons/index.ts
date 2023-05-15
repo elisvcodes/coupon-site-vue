@@ -13,6 +13,10 @@ router.post(
 );
 router.get("/all", getCoupons);
 router.get("/search/:brand", search);
-router.put("/redeem", redeemCoupon);
+router.put(
+  "/redeem",
+  passport.authenticate("jwt", { session: false }),
+  redeemCoupon
+);
 
 export default router;
