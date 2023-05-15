@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://vue-coupon.server.elisv.com/";
+const BASE_URL = "http://localhost:8000";
 
 axios.defaults.baseURL = BASE_URL;
 
