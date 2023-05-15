@@ -8,7 +8,7 @@
 make sure to create a .env file that constains the follows
 
 - DATABASE_URL="file:./dev.db"
--JWT_SECRET="PUT_ANY_SECRET" 
+- JWT_SECRET="PUT_ANY_SECRET" 
 
 yarn <br>
 npx prisma generate <br>
